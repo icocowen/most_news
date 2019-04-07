@@ -1,0 +1,27 @@
+<div nz-row nzType="flex" nzJustify="center"  nzGutter="16">
+  <div nz-col nzSpan="2" >
+    <nz-affix [nzOffsetTop]="58">
+        <app-news-type></app-news-type>
+    </nz-affix>
+  </div>
+  <div nz-col nzSpan="10">
+    <router-outlet></router-outlet>
+  </div>
+  <div nz-col nzSpan="5">
+    <div nz-row nzType="flex" nzJustify="center" style="background-color: white" class="bottom-ten-margin">
+        <div nz-col  nzSpan="20" style="padding-top: 26px;">
+            <app-login></app-login>
+        </div>
+    </div>
+    <div nz-row nzType="flex" nzJustify="center" style="background-color: white; padding-bottom: 20px;" class="bottom-ten-margin">
+        <div nz-col  nzSpan="20" style="padding-top: 26px;">
+            <app-news-tags></app-news-tags>
+        </div>
+    </div>
+    <div nz-row nzType="flex" nzJustify="center" style="background-color: white; padding: 20px 0;">
+        <div nz-col>
+            <app-news-copyright></app-news-copyright>
+        </div>
+    </div>
+  </div>
+</div>

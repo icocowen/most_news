@@ -1,0 +1,16 @@
+
+<nz-autocomplete #searchNews >
+  <nz-auto-option *ngFor="let item of items" [nzValue]="item">{{item}}</nz-auto-option>
+</nz-autocomplete>
+
+<nz-input-group [nzSuffix]="suffixIconSearch">
+  <input type="text"
+   nz-input
+   [nzAutocomplete]="searchNews" 
+   (input)="mayKeyword($event.target?.value)"
+   placeholder="搜索新闻" 
+    />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <i nz-icon type="search"></i>
+</ng-template>
