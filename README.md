@@ -1,6 +1,6 @@
 # NewsReleaseSystem
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
+一个简单的angular新闻发布系统
 
 ## Development server
 
