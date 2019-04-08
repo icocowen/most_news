@@ -4,28 +4,25 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 # NewsReleaseSystem
 
-一个简单的angular新闻发布系统
+一个简单的angular新闻浏览和发布系统
 
-## Development server
+## 计划实现的功能
+* 可浏览新闻概括                 ✔
+* 实现新闻的瀑布流加载
+* 对新闻进行标签化               ✔  
+* 新闻普通用户可以评论           ✔
+* 新闻发布者登录功能             ✔
+* 注册成为新闻发布者或普通用户
+* 新闻发布者可以发布新闻
+* 新闻发布者可以审阅评论
+* 可以发布的新闻内容有文字，图片，视频
+* 新闻需要有具体的标签，类型
+* 后端php搭建
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+# 项目使用
+```
+Angular: 7.2.12
+Angular CLI: 7.3.8
+Ant design 7.2.0
+typescript 3.2.4
+```
