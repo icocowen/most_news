@@ -14,6 +14,7 @@ import { NavComponent } from './nav/nav.component';
 import { ContentModule } from './content/content.module';
 import { LoginWrapComponent } from './login-wrap/login-wrap.component';
 import { RegisterComponent } from './register/register.component';
+import { CookieService } from 'ngx-cookie-service';
 
 registerLocaleData(zh);
 
@@ -35,7 +36,7 @@ registerLocaleData(zh);
     ContentModule,
     AppRoutingModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
+  providers: [{ provide: NZ_I18N, useValue: zh_CN }, CookieService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

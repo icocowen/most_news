@@ -1,0 +1,11 @@
+nz-avatar {
+    cursor: pointer;
+}
+
+nz-list{
+    height: 280px;
+    overflow-y: scroll;
+}
+.userPanel{
+    width: 100px;;
+}

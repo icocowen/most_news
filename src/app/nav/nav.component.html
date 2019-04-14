@@ -6,7 +6,83 @@
       <app-search-news></app-search-news>
   </div>
   <div nz-col nzSpan="2" nzOffset="7" class="top-margin-ten button-flex-around">
-      <button nz-button nzGhost nzType="primary" routerLink="/login">登录</button>
-      <button nz-button nzGhost nzType="primary" routerLink="/register">注册</button>
+        <ng-container *ngIf="ifLogin; else unlogin">
+            <nz-badge [nzCount]='notification' >
+
+
+                <button 
+                nz-button nz-popover  
+                nzType="default" nzShape="circle" 
+                nzTitle="通知" [nzContent]="contentnotifiy" 
+                nzTrigger="click"
+                nzPlacement="bottom">
+                  <i nz-icon nzType="notification" nzTheme="outline"></i>
+                </button>
+                <ng-template #contentnotifiy>
+                    <nz-list
+                    [nzDataSource]="data"
+                    nzSize="small"
+                    [nzRenderItem]="item"
+                    [nzBordered] = "false"
+                  >
+                    <ng-template #item let-item><nz-list-item [nzContent]="item"></nz-list-item></ng-template>
+                  </nz-list>
+                </ng-template>
+                            
+                
+            </nz-badge>
+
+            <nz-badge [nzCount]='mail'>
+
+                <button 
+                nz-button nz-popover  
+                nzType="default" nzShape="circle" 
+                nzTitle="私信" [nzContent]="contentmail" 
+                nzTrigger="click"
+                nzPlacement="bottom">
+                <i nz-icon nzType="mail" nzTheme="outline"></i>
+                </button>
+                <ng-template #contentmail>
+                    <nz-list
+                    [nzDataSource]="data"
+                    nzSize="small"
+                    [nzRenderItem]="item"
+                    [nzBordered] = "false"
+                  >
+                    <ng-template #item let-item><nz-list-item [nzContent]="item"></nz-list-item></ng-template>
+                  </nz-list>
+                </ng-template>
+
+            </nz-badge>
+
+            
+
+            <nz-dropdown [nzPlacement]="'bottomCenter'">
+                <nz-avatar
+                [nzText]="user.username"
+                nzSize="16"
+                [ngStyle]="{ 'background-color': color }"
+                style="vertical-align: middle;"
+                nz-dropdown
+                ></nz-avatar>
+
+                <ul nz-menu >
+                    <li nz-menu-item>
+                      <i nz-icon nzType="user" nzTheme="outline"></i>个人主页
+                    </li>
+                    <li nz-menu-item (click)="logout()">
+                      <i nz-icon nzType="poweroff" nzTheme="outline"></i>注销
+                    </li>
+                  </ul>
+              </nz-dropdown>
+
+        </ng-container>
+        <ng-template #unlogin>
+            <button nz-button nzGhost nzType="primary" routerLink="/login">登录</button>
+            <button nz-button nzGhost nzType="primary" routerLink="/register">注册</button>
+        </ng-template>
+        
+
+      
   </div>
 </div>
