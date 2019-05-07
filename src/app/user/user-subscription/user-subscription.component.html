@@ -1,0 +1,72 @@
+<div nz-row>
+    <div nz-col nzSpan="24"  style="background-color: white; padding: 16px; border-radius: 5px; box-shadow: 4px 3px 8px  #e7e7e7;">
+  
+        <div nz-row>
+            <div nz-col nzSpan="24">
+                <h2><ng-container *ngIf="owner; else other">我</ng-container><ng-template #other>Ta</ng-template>的订阅</h2>
+                <div style="padding-bottom: 20px;" class="border" [ngClass]="{'empty-center': !subscribeSet}">
+                  <ng-container *ngIf="subscribeSet; else noneSubscribe">
+  
+         
+
+
+
+
+
+
+                    <ng-container *ngFor="let subscribe of subscribeSet">
+                      <nz-card style="width: 300px;margin-top: 16px"
+                      [nzActions]="[favoriteAction]"
+                      style="float:left;width: 300px;
+                        margin: 10px; cursor: pointer"
+                   >
+                       <nz-card-meta
+                         [nzAvatar]="avatarTemplate"
+                         [nzTitle]="subscribe?.nick_name"
+                         [nzDescription]="subscribe?.motto"
+                         [routerLink]="[ '../..', subscribe?.t_u_id ]"
+                       ></nz-card-meta>
+                     </nz-card>
+                     <ng-template #avatarTemplate>
+                         <nz-avatar [nzText]="subscribe?.nick_name" ></nz-avatar>
+                       </ng-template>
+                     <ng-template #favoriteAction >
+                        <button  *ngIf="owner" nz-button nzType="default" [nzSize]="size" nzShape="circle" nzGhost 
+                        nz-popconfirm
+                        nzTitle="确定要取消订阅?"
+                        nzOkText="是"
+                        nzCancelText="否"
+                        (nzOnConfirm)="cancelSub(subscribe?.t_u_id)"
+                        >
+                        <i  nz-icon nzType="heart" [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i>
+                      </button>
+                       </ng-template>
+                  </ng-container>
+
+
+
+
+
+
+
+
+
+
+                    
+                    
+                    <div style="position:absolute; bottom: 20px;">
+                      <nz-pagination [nzPageIndex]="1" [nzTotal]="totalNum" [nzPageSize]="12" (nzPageIndexChange)="changePage($event)"></nz-pagination>
+                    </div>
+
+                     
+                  </ng-container>
+                  <ng-template #noneSubscribe>
+                      <nz-empty [nzNotFoundContent]="'我...我连订阅也没有'"></nz-empty>
+                  </ng-template>
+                  
+                    
+                </div>  
+            </div>
+          </div>
+    </div>   
+  </div>

@@ -1,0 +1,11 @@
+.empty-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.border{
+    height: 800px;
+}
+.link-user {
+    cursor: pointer;
+}

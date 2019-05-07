@@ -1,0 +1,52 @@
+<div nz-row nzType="flex" nzJustify="center">
+  <div nz-col nzSpan="18">
+      <div nz-row>
+          <div nz-col nzSpan="24" class="userBg" [style.background-image]="userBg" >
+              <div nz-row style="position: relative; top: 118px; ">
+                <div nz-col nzSpan="3" style="display:flex; justify-content:center;">
+                  <nz-avatar
+                    [nzText]="user?.username"
+                    [nzSize]="64"
+                    [ngStyle]="{ 'background-color': 'red' }"
+                    style="vertical-align: middle;"
+                    >
+                  </nz-avatar>
+                </div> 
+                <div nz-col nzSpan="6">
+                  <div nz-row>
+                    <div nz-col nzSpan="24" style="color: white;font-size: 2em;font-weight: 600;">
+                      {{user?.username}}
+                    </div>
+                  </div>
+                  <div nz-row>
+                    <div nz-col nzSpan="24" style="color: #f3f3f3;">
+                      {{user?.motto}}
+                    </div>
+                  </div>
+                </div>    
+              </div>
+          </div>
+      </div>
+    
+    <div nz-row style="margin-bottom: 20px;">
+      <nav nz-col nzSpan="24" >
+        <ul nz-menu [nzMode]="'horizontal'">
+          <li nz-menu-item routerLink="./"><i nz-icon nzType="home" [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i> 主页</li>
+          <li nz-menu-item routerLink="./dymanic"><i nz-icon nzType="smile" [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i> 动态</li>
+          <li nz-menu-item routerLink="./upLoad"><i nz-icon nzType="cloud-upload" [nzTheme]="'outline'"></i> 投稿</li>
+          <li nz-menu-item routerLink="./favorit"><i nz-icon nzType="star" [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i> 收藏</li>
+          <li nz-menu-item routerLink="./subscription"><i nz-icon nzType="heart" [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i> 订阅</li>
+        </ul>
+      </nav>
+    </div>
+    <router-outlet></router-outlet>
+    
+  </div>
+</div>
+
+<!-- 自己发布的新闻 -->
+<nz-back-top [nzTemplate]="tpl" [nzVisibilityHeight]="100">
+    <ng-template #tpl>
+      <div class="ant-back-top-inner">UP</div>
+    </ng-template>
+  </nz-back-top>

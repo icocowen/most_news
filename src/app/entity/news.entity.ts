@@ -17,11 +17,16 @@
 //       }]
 //   }
 export class News {
-    public id: string;
-    public title: string;
-    public desc: string;
-    public tag: string;
-    public nickName: string;
-    public time: string;
-    public commitsNum: number;
+    public id?: string;
+    public title?: string;
+    public desc?: string;
+    public tag?: string;
+    public tagid?: string;
+    public nickName?: string;
+    public uid?: string;
+    public time?: string;
+    public article?: string;
+    public commentsNum?: number;
+    public motto?: string;
+    public favoriteDate?: string;
 }

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedServerService } from '../utility/shared-server.service';
-import { User } from '../entity/user.entity';
+import { User, getUser } from '../entity/user.entity';
 import { CookieService } from 'ngx-cookie-service';
 import { NzMessageService } from 'ng-zorro-antd';
+import { LoggerService } from 'ng-zorro-antd/core/util/logger/logger.service';
+import { LoginService } from '../utility/login.service';
+import { NotifyService } from '../utility/notify.service';
 
 @Component({
   selector: 'app-nav',
@@ -13,52 +16,66 @@ export class NavComponent implements OnInit {
 
   public ifLogin: boolean;
   public user: User;
-  public notification: number = 5;
-  public mail: number = 4;
-  public data = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.',
-    'Los Angeles battles huge wildfires.',
-    'Los Angeles battles huge wildfires.',
-    'Los Angeles battles huge wildfires.',
-    'Los Angeles battles huge wildfires.'
-  ];
-
+  public notification: number = 0;
+  public isHasProduct: boolean;
+  public productSet;
+  public data = [];
+  noids: any;
 
   constructor(
     private _sharedServer: SharedServerService,
     private cookieService: CookieService,
     private message: NzMessageService,
+    private auth: LoginService,
+    private notify: NotifyService
   ) { }
 
   ngOnInit() {
-    if (this.cookieService.check('user')) {
-      let uStr = this.cookieService.get('user');
-      this.ifLogin = true;
-      this.user = JSON.parse(uStr) as User;
-      console.log(this.user);
+   
 
-    }
+    this.login();
     this._sharedServer.changeEmitted$.subscribe(d => {
       if(d == 'login'){
-        let uStr = this.cookieService.get('user');
-        this.ifLogin = true;
-        this.user = JSON.parse(uStr) as User;
-        console.log(this.user);
+       this.login();
       }
-    })
-    
+    });
+    this.notify.notify();
+
+    this.notify.changeEmitted$.subscribe(d => {
+
+      this.notification = d['notifyNum'];
+      if(d != null && d['notifys'] != null ) {
+       
+        this.data = d['notifys'];
+        this.noids = d['noids'];
+      }
+    });
+  }
+
+
+  seen(){
+    this.auth.seen(this.noids).subscribe();
+    this.notification = 0;
+  }
+  login(){
+    this.auth.checkStatus().subscribe(d => {
+      if(d) {
+        this.user = d['data'] as User;
+        this.ifLogin = true;
+      }
+    });
   }
 
 
   logout(){
+    this.auth.logout().subscribe(
+      d => {
+        this.message.warning(d['msg']);
+      }
+    );
     this.ifLogin = false;
     this._sharedServer.emitChange("logout");
-    this.cookieService.delete('user');
-    this.message.warning("注销成功");
+    
   }
 
 }

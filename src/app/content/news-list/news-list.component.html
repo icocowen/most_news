@@ -3,26 +3,26 @@
         <nz-list-item [class.hasImage]="item?.img" class="news-item-background "
          [nzActions]="[tagAction, likeAction, msgAction, timeAction]">
             <ng-template #tagAction>
-                <nz-tag [nzColor]="'magenta'"> {{ item.tag }} </nz-tag>
+                <nz-tag [nzColor]="'magenta'"> {{ item?.tag }} </nz-tag>
             </ng-template>
             <ng-template #likeAction>
                     <nz-avatar
-                    [nzText]="'iwen'"
+                    nzText="{{item?.nickName}}"
                     [nzSize]="16"
                     [ngStyle]="{ 'background-color': 'red' }"
                     style="vertical-align: middle;"
-                  ></nz-avatar> {{item.nickName}}
+                  ></nz-avatar> {{item?.nickName}}
             </ng-template>
-            <ng-template #msgAction><i nz-icon type="message" ></i> 2</ng-template>
+            <ng-template #msgAction><i nz-icon type="message" ></i> {{ item?.commentsNum }}</ng-template>
             <ng-template #timeAction>
-                {{ item.time}}
+                {{ item?.time}}
             </ng-template>
             <nz-list-item-meta
                 [nzTitle]="newsTitle"
-                [nzDescription] = "item.desc"
+                [nzDescription] = "item?.desc"
             >
             <ng-template #newsTitle>
-                <a [routerLink]="[ '/newsItem', item.id ]" style="font-size: 1.2em; color:black;">{{item.title}}</a>
+                <a [routerLink]="[ '/newsItem', item?.id ]" style="font-size: 1.2em; color:black;">{{item?.title}}</a>
             </ng-template>
         </nz-list-item-meta>
         </nz-list-item>

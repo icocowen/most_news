@@ -1,0 +1,225 @@
+
+
+
+<div nz-row>
+  <div nz-col nzSpan="18"  style="background-color: white; padding: 16px; border-radius: 5px; box-shadow: 4px 3px 8px  #e7e7e7;">
+      <div nz-row class="overflow-proteck">
+        <div nz-col nzSpan="24">
+            <h2><ng-container *ngIf="owner; else other">我</ng-container><ng-template #other>Ta</ng-template>的作品</h2>
+            <div class="border">
+              <ng-container *ngIf="productSet; else withoutProducy">
+                
+                  <nz-list  [nzDataSource]="productSet" nzBordered="false" [nzRenderItem]="item" [nzItemLayout]="'vertical'">
+                      <ng-template #item let-item>
+                          <nz-list-item [class.hasImage]="item?.img" class="news-item-background "
+                           [nzActions]="[tagAction, msgAction, timeAction, editAction,deleteAction]" > 
+                              <ng-template #tagAction>
+                                  <nz-tag [nzColor]="'magenta'"> {{ item?.tag }} </nz-tag>
+                              </ng-template>
+                              <ng-template #msgAction><i nz-icon type="message" ></i> {{item?.commentsNum}}</ng-template>
+                              <ng-template #timeAction>
+                                  {{ item?.time}}
+                              </ng-template>
+
+                              <ng-template #editAction>
+                                  <button *ngIf="owner" nz-button nzType="default" nzSize="small" nzShape="round"
+                                    nz-popconfirm
+                                    nzTitle="确定进行编辑吗?"
+                                    nzOkText="是"
+                                    nzCancelText="否"
+                                    (nzOnConfirm)="editorConfirm(item?.id)"
+                                  > 
+                                    <i nz-icon nzType="edit" nzTheme="outline"></i>编辑
+                                  </button>
+                              </ng-template>
+                              <ng-template #deleteAction >
+                                  <button *ngIf="owner" nz-button nzType="danger" nzSize="small" nzShape="round"
+                                    nz-popconfirm
+                                    nzTitle="确定要删除吗?"
+                                    nzOkText="是"
+                                    nzCancelText="否"
+                                    (nzOnConfirm)="confirm(item?.id)"
+                                  > 
+                                      <i nz-icon nzType="delete" nzTheme="outline"></i>删除
+                                    </button>
+                              </ng-template>
+
+                              <nz-list-item-meta
+                                  [nzTitle]="newsTitle"
+                                  [nzDescription] = "item.desc"
+                              >
+                              <ng-template #newsTitle>
+                                  <a [routerLink]="[ '/newsItem', item.id ]" style="font-size: 1.2em; color:black;">{{item.title}}</a>
+                              </ng-template>
+                          </nz-list-item-meta>
+                          </nz-list-item>
+                          
+                      </ng-template>
+                      <nz-list-item *ngIf="productSet.length >= 5">
+                        <button nz-button nzType="dashed" nzBlock routerLink='./upLoad'>更多</button>
+                      </nz-list-item>
+                  </nz-list>
+                  <!-- 没有图片 76 有图片 123 -->
+                  
+                  
+                  
+
+
+              </ng-container>
+              <ng-template #withoutProducy>
+                  <nz-empty [nzNotFoundContent]="'作品空空如也'"></nz-empty>
+              </ng-template>
+              
+                
+            </div>  
+        </div>
+      </div>
+
+      <div nz-row class="overflow-proteck">
+          <div nz-col nzSpan="24">
+              <h2><ng-container *ngIf="owner; else other">我</ng-container><ng-template #other>Ta</ng-template>的收藏</h2>
+              <div class="border">
+
+                  <ng-container *ngIf="collectSet; else withoutCollect">
+                
+                      <nz-list [nzDataSource]="collectSet" nzBordered="false" [nzRenderItem]="item" [nzItemLayout]="'vertical'">
+                          <ng-template #item let-item>
+                              <nz-list-item [class.hasImage]="item?.img" class="news-item-background "
+                               [nzActions]="[tagAction, msgAction, timeAction, cancelAction]">
+                                  <ng-template #tagAction>
+                                      <nz-tag [nzColor]="'magenta'"> {{ item?.tag }} </nz-tag>
+                                  </ng-template>
+                                  <ng-template #msgAction><i nz-icon type="message" ></i> {{item?.commentsNum}}</ng-template>
+                                  <ng-template #timeAction>
+                                      {{ item?.time}}
+                                  </ng-template>
+
+                                  <ng-template #cancelAction >
+                                      <button  *ngIf="owner" nz-button nzType="default" [nzSize]="size" nzShape="circle" nzGhost 
+                                      nz-popconfirm
+                                      nzTitle="确定要删除收藏吗?"
+                                      nzOkText="是"
+                                      nzCancelText="否"
+                                      (nzOnConfirm)="delFavorite(item?.id)"
+                                      >
+                                          <i nz-icon nzType="star" [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i>
+                                      </button>
+                                  </ng-template>
+                                 
+
+                                  <nz-list-item-meta style="margin-bottom: 0;"
+                                      [nzTitle]="newsTitle"
+                                  >
+                                  <ng-template #newsTitle>
+                                      <a [routerLink]="[ '/newsItem', item?.id ]" style="font-size: 1.2em; color:black;">{{item?.title}}</a>
+                                  </ng-template>
+                              </nz-list-item-meta>
+                              </nz-list-item>
+                              
+                          </ng-template>
+                          <nz-list-item *ngIf="collectSet.length >= 5">
+                            <button nz-button nzType="dashed" nzBlock routerLink='./favorit'>更多</button>
+                          </nz-list-item>
+                      </nz-list>
+                      <!-- 没有图片 76 有图片 123 -->
+                      
+                   
+                      
+
+
+                  </ng-container>
+                  <ng-template #withoutCollect>
+                      <nz-empty [nzNotFoundContent]="'还没有收藏呢'"></nz-empty>
+                  </ng-template>
+
+
+
+                  
+              </div>  
+          </div>
+        </div>
+
+      <div nz-row class="overflow-proteck">
+          <div nz-col nzSpan="24">
+              <h2><ng-container *ngIf="owner; else other">我</ng-container><ng-template #other>Ta</ng-template>的订阅</h2>
+              <div style="padding-bottom: 20px;" class="flex">
+                <ng-container *ngIf="subscribeSet; else noneSubscribe">
+
+                  <ng-container *ngFor="let subscribe of subscribeSet">
+                      <nz-card style="width: 300px;margin-top: 16px"
+                      [nzActions]="[favoriteAction]"
+                   >
+                       <nz-card-meta
+                         [nzAvatar]="avatarTemplate"
+                         [nzTitle]="subscribe?.nick_name"
+                         [nzDescription]="subscribe?.motto"
+                         [routerLink]="[ '../../user', subscribe?.t_u_id ]"
+                         style="cursor:pointer;"
+                       ></nz-card-meta>
+                     </nz-card>
+                     <ng-template #avatarTemplate>
+                         <nz-avatar [nzText]="subscribe?.nick_name"></nz-avatar>
+                       </ng-template>
+                     <ng-template #favoriteAction >
+                        <button  *ngIf="owner" nz-button nzType="default" [nzSize]="size" nzShape="circle" nzGhost 
+                        nz-popconfirm
+                        nzTitle="确定要取消订阅?"
+                        nzOkText="是"
+                        nzCancelText="否"
+                        (nzOnConfirm)="cancelSub(subscribe?.t_u_id)"
+                        >
+                        <i  nz-icon nzType="heart" [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'"></i>
+                      </button>
+                       </ng-template>
+                  </ng-container>
+                  
+                   
+                </ng-container>
+                <ng-template #noneSubscribe>
+                    <nz-empty [nzNotFoundContent]="'连订阅也没有呢'"></nz-empty>
+                </ng-template>
+                
+                  
+              </div>  
+          </div>
+        </div>
+      
+  </div>
+  <div nz-col nzSpan="5" nzOffset="1"  style="background-color: white;">
+    <div nz-row style="display: flex; padding: 20px;justify-content: space-around;">
+      <div nz-col naSpan="12">
+        <div nz-row>
+          <div nz-col nzSpan="24" style="color: #999999;">关注数</div>
+        </div>
+        <div nz-row >
+            <div nz-col nzSpan="24" style="text-align: center;">{{ subNum }}</div>
+          </div>
+      </div>
+      <div nz-col naSpan="12">
+          <div nz-row>
+              <div nz-col nzSpan="24" style="color: #999999;">粉丝数</div>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="24" style="text-align: center;">{{ subedNum }}</div>
+              </div>
+      </div>
+    </div>
+    <div nz-row *ngIf="owner">
+      <div nz-col nzSpan="24" style="padding: 20px;">
+          <button nz-button nzType="default" nzBlock routerLink="../../publish">
+              <i nz-icon nzType="profile" nzTheme="outline"></i>
+            新闻投稿
+          </button>
+      </div>
+    </div>
+
+    <div nz-row>
+      <div nz-col nzSpan="24" style="padding: 20px; margin-top: 20px; background-color: white;">
+        <h4>空间公告</h4>
+        <textarea name="notice" rows="4" nz-input [innerHTML]='note' (blur)="updateNote($event.target.value)"></textarea>
+      </div>
+    </div>
+
+ 
+  </div>
+</div>

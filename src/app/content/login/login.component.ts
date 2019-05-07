@@ -1,9 +1,11 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginService } from 'src/app/utility/login.service';
+import { LoginService } from '../../utility/login.service';
 import { NzMessageService } from 'ng-zorro-antd';
-import { User } from 'src/app/entity/user.entity';
-import { SharedServerService } from 'src/app/utility/shared-server.service';
+import { User } from '../../entity/user.entity';
+import { SharedServerService } from '../../utility/shared-server.service';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -21,15 +23,19 @@ export class LoginComponent implements OnInit {
     let a = this.validateForm.get('userName');
     let b = this.validateForm.get('password');
 
-    let c = this.login.login(a.value, b.value);
-    if(c.code == 1) {
-      this.message.create('success', '登录成功！');
-      console.log(c);
-      this.user.emit(c.data);
-      this._sharedServer.emitChange('login'); //通知父页面
-    }else if(c.code == 0){
-      this.message.create('error', '登录失败！');
-    }
+    if(this.validateForm.valid){ //确保输入有效
+      this.login.login( a.value, b.value ).subscribe(c => {
+        if(c['code'] === '0000144' || c['code'] === '0000448') {
+          this.message.create('success', c['msg']);
+          this.user.emit(c['data']);
+          this._sharedServer.emitChange('login'); //通知父页面
+          this.router.navigate(['/recommed']);
+        }else{
+          this.message.create('error', c['msg']);
+        }
+      });
+   }
+    
   }
 
 
@@ -37,8 +43,10 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private login : LoginService,
     private message: NzMessageService,
-    private _sharedServer: SharedServerService
-    ) {}
+    private _sharedServer: SharedServerService,
+    private router: Router,
+    private location: Location
+    ){}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

@@ -7,18 +7,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
-  
-  public isShowCarousel = true;
 
-
+  newType: string;
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(d => {
-      this.isShowCarousel = true;
-      if(d.title != 'recommed' || d.title == null) {
-        this.isShowCarousel = false;
-      }
+        this.newType = d.title;
     })
   }
 

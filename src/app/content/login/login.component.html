@@ -2,10 +2,10 @@
     <nz-form-item>
       <nz-form-control>
         <nz-input-group [nzPrefix]="prefixUser">
-          <input type="text" nz-input formControlName="userName" placeholder="账号/email/手机号" />
+          <input type="text" nz-input formControlName="userName" placeholder="账号/email" />
         </nz-input-group>
         <nz-form-explain *ngIf="validateForm.get('userName')?.dirty && validateForm.get('userName')?.errors"
-          >请输入你的账号/email/手机号!</nz-form-explain
+          >请输入你的账号/email!</nz-form-explain
         >
       </nz-form-control>
     </nz-form-item>

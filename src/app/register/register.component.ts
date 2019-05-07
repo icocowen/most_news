@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { LoginService } from '../utility/login.service';
+import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-register',
@@ -13,10 +15,29 @@ export class RegisterComponent implements OnInit {
   validateForm: FormGroup;
 
   submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
+    if(this.validateForm.valid) {
+      this.auth.register(this.validateForm.value).subscribe(d => {
+        if(d!=null && d['code'] === '0000148') {
+          this.modal.info({
+          nzTitle: d['msg']+' 请记住账号',
+          nzContent: '您的账号为: '+d['data']+' 密码为: ' + this.validateForm.get('password').value,
+          nzOkText: '我记住了',
+          nzCancelText: null
+        });
+        }
+      });
     }
+  }
+
+  checkEmail(){
+    if(this.validateForm.get('email').valid) {
+      this.auth.checkEmail(this.validateForm.get('email').value).subscribe(d => {
+        if(d != null && d['code'] === '0000451') {
+          this.validateForm.get('email').setValue('');
+        }
+      });
+    }
+    
   }
 
   updateConfirmValidator(): void {
@@ -37,7 +58,11 @@ export class RegisterComponent implements OnInit {
     e.preventDefault();
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private auth: LoginService,
+    private modal: NzModalService
+    ) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -45,9 +70,9 @@ export class RegisterComponent implements OnInit {
       password: [null, [Validators.required]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
       nickname: [null, [Validators.required]],
-      phoneNumberPrefix: ['+86'],
-      phoneNumber: [null, [Validators.required]],
-      agree: [false]
+      phoneNumber: [null, [Validators.required]]
     });
   }
 }
+
+

@@ -1,0 +1,77 @@
+<div nz-row>
+    <div nz-col nzSpan="24"  style="background-color: white; padding: 16px; border-radius: 5px; box-shadow: 4px 3px 8px  #e7e7e7;">
+        <div nz-row>
+            <div nz-col nzSpan="24">
+                <h2><ng-container *ngIf="owner; else other">我</ng-container><ng-template #other>Ta</ng-template>的作品</h2>
+                <div class="border" [ngClass]="{'empty-center': !productSet}">
+                  <ng-container *ngIf="productSet; else withoutProducy">
+                    
+                      <nz-list [nzDataSource]="productSet" nzBordered="false" [nzRenderItem]="item" [nzItemLayout]="'vertical'" class="overflow-proteck">
+                          <ng-template #item let-item>
+                              <nz-list-item [class.hasImage]="item?.img" class="news-item-background"
+                               [nzActions]="[tagAction, msgAction, timeAction, editAction, deleteAction]">
+                                  <ng-template #tagAction>
+                                      <nz-tag [nzColor]="'magenta'"> {{ item?.tag }} </nz-tag>
+                                  </ng-template>
+                                  <ng-template #msgAction><i nz-icon type="message" ></i> {{item?.commentsNum}}</ng-template>
+                                  <ng-template #timeAction>
+                                      {{ item?.time}}
+                                  </ng-template>
+    
+                                  <ng-template #editAction >
+                                      <button *ngIf="owner" nz-button nzType="default" nzSize="small" nzShape="round"
+                                      nz-popconfirm
+                                      nzTitle="确定进行编辑吗?"
+                                      nzOkText="是"
+                                      nzCancelText="否"
+                                      (nzOnConfirm)="editorConfirm(item?.id)"
+                                      > 
+                                        <i nz-icon nzType="edit" nzTheme="outline"></i>编辑
+                                      </button>
+                                  </ng-template>
+                                  <ng-template #deleteAction>
+                                      <button *ngIf="owner" nz-button nzType="danger" nzSize="small" nzShape="round"
+                                      
+                                        nz-popconfirm
+                                        nzTitle="确定要删除吗?"
+                                        nzOkText="是"
+                                        nzCancelText="否"
+                                        (nzOnConfirm)="confirm(item?.id)"
+                                      > 
+                                          <i nz-icon nzType="delete" nzTheme="outline"></i>删除
+                                        </button>
+                                  </ng-template>
+    
+                                  <nz-list-item-meta
+                                      [nzTitle]="newsTitle"
+                                      [nzDescription] = "item?.desc"
+                                  >
+                                  <ng-template #newsTitle>
+                                      <a [routerLink]="[ '/newsItem', item?.id ]" style="font-size: 1.2em; color:black;">{{item?.title}}</a>
+                                  </ng-template>
+                              </nz-list-item-meta>
+                              </nz-list-item>
+                              
+                          </ng-template>
+                          
+                      </nz-list>
+                      <!-- 没有图片 76 有图片 123 -->
+                      <div style="position:absolute; bottom: 20px;">
+                        <nz-pagination [nzPageIndex]="1" [nzTotal]="totalNum" [nzPageSize]="6" (nzPageIndexChange)="changePage($event)"></nz-pagination>
+
+                      </div>
+                      
+    
+    
+                  </ng-container>
+                  <ng-template #withoutProducy >
+                      <nz-empty  [nzNotFoundContent]="'作品空空如也'"></nz-empty>
+                  </ng-template>
+                  
+                    
+                </div>  
+            </div>
+          </div>
+   
+    </div>
+</div>

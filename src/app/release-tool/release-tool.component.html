@@ -1,0 +1,31 @@
+<div nz-row nzType="flex" nzJustify="center">
+  <div nz-col nzSpan="18" style="background-color: whitesmoke;">
+    <div nz-row style="margin-bottom: 20px;">
+      <div nz-col nzSpan="24" style="font-weight:bold;">
+        <input nz-input placeholder="新闻标题 推荐在30字以内" nzSize="large" class="title" [value]="news?.title" #title/>
+      </div>
+    </div>
+    <div nz-row style="margin-bottom: 20px;">
+      <div nz-col nzSpan="24">
+        <div id="editor" style="background-color: white;">
+            
+        </div>
+      </div>
+    </div>
+
+    <div nz-row>
+      <div nz-col nzSpan="24">
+        <nz-radio-group [(ngModel)]="tagValue">
+          <ng-container *ngFor="let option of checkOptionsOne">
+            <label nz-radio nzValue="{{option.value}}" >{{ option.label }}</label>
+          </ng-container>
+        </nz-radio-group>
+      </div>
+    </div>
+    <div nz-row >
+      <div nz-col nzSpan="24" style="display: flex; justify-content: center; margin-top: 40px;">
+        <button nz-button nzType="primary" nzShape="round" nzSize="large" (click)="release(title.value)">发布新闻</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -12,3 +12,8 @@ body{
 .bottom-ten-margin {
     margin-bottom: 10px;
 }
+.overflow-proteck{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

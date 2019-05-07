@@ -12,6 +12,13 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'recommed', pathMatch: 'full'},
       {path: 'recommed', component: NewsComponent, data:{title: 'recommed'}},
+      {path: 'technology', component: NewsComponent, data:{title: 'technology'}},
+      {path: 'recreation', component: NewsComponent, data:{title: 'recreation'}},
+      {path: 'game', component: NewsComponent, data:{title: 'game'}},
+      {path: 'sports', component: NewsComponent, data:{title: 'sports'}},
+      {path: 'finance', component: NewsComponent, data:{title: 'finance'}},
+      {path: 'funny', component: NewsComponent, data:{title: 'funny'}},
+      {path: 'search/:key', component: NewsComponent, data:{title: 'search'}}
     ]
   },
   {path: 'newsItem/:id', component: NewsItemComponent},

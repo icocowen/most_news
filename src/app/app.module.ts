@@ -15,6 +15,12 @@ import { ContentModule } from './content/content.module';
 import { LoginWrapComponent } from './login-wrap/login-wrap.component';
 import { RegisterComponent } from './register/register.component';
 import { CookieService } from 'ngx-cookie-service';
+import { UserModule } from './user/user.module';
+import { ReleaseToolComponent } from './release-tool/release-tool.component';
+import { NewsServerService } from './data/news-server.service';
+import { LoginService } from './utility/login.service';
+import { SanitizingPipe } from './utility/sanitizing.pipe';
+
 
 registerLocaleData(zh);
 
@@ -24,7 +30,9 @@ registerLocaleData(zh);
     SearchNewsComponent,
     NavComponent,
     LoginWrapComponent,
-    RegisterComponent
+    RegisterComponent,
+    ReleaseToolComponent,
+    SanitizingPipe
   ],
   imports: [
     BrowserModule,
@@ -34,9 +42,16 @@ registerLocaleData(zh);
     BrowserAnimationsModule,
     ReactiveFormsModule,
     ContentModule,
+    UserModule,
     AppRoutingModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }, CookieService ],
+  providers: [
+    { provide: NZ_I18N, useValue: zh_CN },
+    CookieService , 
+    {provide: 'DOMAIN_API', useValue: 'http://localhost:8080/phpService/index.php'},
+    NewsServerService,
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
