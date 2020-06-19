@@ -1,7 +1,7 @@
 
-# NewsReleaseSystem
+# 新闻发布系统
 
-一个简单的angular新闻浏览和发布系统
+基于angular新闻和发布系统
 
 ## 计划实现的功能
 1. 可浏览新闻概括                 ✔
